@@ -1,7 +1,5 @@
 FROM ubuntu:18.04
 
-MAINTAINER chaun14, <contact@chaun14.fr>
-
 RUN apt update \
     && apt upgrade -y \
     && apt autoremove -y \
@@ -23,15 +21,11 @@ RUN curl -sL https://deb.nodesource.com/setup_16.x | bash - \
     && apt -y upgrade \
     && apt -y install nodejs node-gyp \
     && apt -y install ffmpeg \
-    && npm install discord.js node-opus opusscript \
-    && npm install sqlite3 --build-from-source \
-    && npm install better-sqlite3 --build-from-source
+    && npm install discord.js node-opus opusscript
 
 USER container
 ENV  USER container
 ENV  HOME /home/container
-
-
 
 COPY ./entrypoint.sh /entrypoint.sh
 
