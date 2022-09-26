@@ -10,7 +10,7 @@
     "description": "Bot NodeJS 16 - Discord 14",
     "features": null,
     "images": [
-        "chaun14\/discord-js13"
+        "5140\/discord-v14"
     ],
     "file_denylist": [],
     "startup": "node ${STARTUP_FILE}",
