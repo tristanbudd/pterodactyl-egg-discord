@@ -15,6 +15,8 @@ ENV LC_ALL en_US.UTF-8
 
 WORKDIR /home/container
 
+RUN npm install --global --force yarn@latest
+
     # NodeJS
 RUN curl -sL https://deb.nodesource.com/setup_16.x | bash - \
     && apt update \
@@ -23,9 +25,7 @@ RUN curl -sL https://deb.nodesource.com/setup_16.x | bash - \
     && apt -y install ffmpeg \
     && npm install discord.js node-opus opusscript
 
-USER container
-ENV  USER container
-ENV  HOME /home/container
+RUN yarn add discord.js @discordjs/voice
 
 COPY ./entrypoint.sh /entrypoint.sh
 
