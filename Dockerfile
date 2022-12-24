@@ -4,7 +4,10 @@ RUN apt-get update
 RUN apt-get upgrade -y
 RUN apt-get autoremove
 
-RUN mkdir -p /home/container
+RUN adduser --disabled-password --home /home/container container
+USER container
+ENV USER=container HOME=/home/container
+
 WORKDIR /home/container
 
 RUN npm install --global --force yarn@latest
