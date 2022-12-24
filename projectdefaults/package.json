@@ -1,7 +1,7 @@
 {
   "name": "discord-js14",
   "version": "1.0.0",
-  "description": "Bot NodeJS16 - Discord 14",
+  "description": "Bot NodeJS 18 - Discord 14",
   "main": "index.js",
   "repository": {
     "type": "git",
