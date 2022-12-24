@@ -2,7 +2,6 @@ FROM node:lts-slim
 
 RUN apt-get update
 RUN apt-get upgrade -y
-RUN apt-get install python -y
 RUN apt-get autoremove
 
 RUN mkdir -p /home/container
