@@ -1,4 +1,4 @@
-FROM node:lts-slim
+FROM node:18.12-slim
 
 RUN apt-get update
 RUN apt-get upgrade -y
