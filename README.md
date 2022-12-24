@@ -2,7 +2,7 @@
 
 This is an egg dedicated to NodeJS bot hosting (discord.js v14 & nodejs v18.12) on pterodactyl panel.
 
-Docker image: https://hub.docker.com/r/5140/discord-v14
+Docker image: https://hub.docker.com/r/5140/discord-egg
 
 Docker image used: https://hub.docker.com/_/node (18.12-slim)
 

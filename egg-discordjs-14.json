@@ -9,7 +9,7 @@
 	"author": "perso@stan1712.com",
 	"description": "Bot NodeJS 16 - Discord 14",
 	"features": null,
-	"images": ["5140/discord-v14"],
+	"images": ["5140/discord-egg"],
 	"file_denylist": [],
 	"startup": "node ${STARTUP_FILE}",
 	"config": {
