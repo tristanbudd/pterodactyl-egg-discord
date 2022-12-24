@@ -15,5 +15,9 @@
   "bugs": {
     "url": "https://github.com/stanislasbdx/discord-js13/issues"
   },
-  "homepage": "https://github.com/stanislasbdx/discord-js13#readme"
+  "homepage": "https://github.com/stanislasbdx/discord-js13#readme",
+  "dependencies": {
+    "discord.js": "latest",
+    "@discordjs/voice": "latest"
+  }
 }

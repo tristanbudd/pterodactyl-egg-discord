@@ -11,8 +11,8 @@ RUN npm install --global --force yarn@latest
 
 COPY ./projectdefaults/ /
 
-RUN yarn add discord.js @discordjs/voice
-
 COPY ./entrypoint.sh /entrypoint.sh
+
+RUN yarn install
 
 CMD ["/bin/bash", "/entrypoint.sh"]
