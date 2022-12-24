@@ -1,34 +1,32 @@
 {
-    "_comment": "DO NOT EDIT: FILE GENERATED AUTOMATICALLY BY PTERODACTYL PANEL - PTERODACTYL.IO",
-    "meta": {
-        "version": "PTDL_v1",
-        "update_url": null
-    },
-    "exported_at": "2021-09-05T16:10:05+02:00",
-    "name": "Bot NodeJS16 Discord14",
-    "author": "perso@stan1712.com",
-    "description": "Bot NodeJS 16 - Discord 14",
-    "features": null,
-    "images": [
-        "5140\/discord-v14"
-    ],
-    "file_denylist": [],
-    "startup": "node ${STARTUP_FILE}",
-    "config": {
-        "files": "{}",
-        "startup": "{\r\n    \"done\": \"\"\r\n}",
-        "logs": "{}",
-        "stop": "^C"
-    },
-    "variables": [
-        {
-            "name": "Startup File",
-            "description": "Select a file to start your bot from",
-            "env_variable": "STARTUP_FILE",
-            "default_value": "index.js",
-            "user_viewable": true,
-            "user_editable": true,
-            "rules": "required|string|max:200"
-        }
-    ]
+	"_comment": "DO NOT EDIT: FILE GENERATED AUTOMATICALLY BY PTERODACTYL PANEL - PTERODACTYL.IO",
+	"meta": {
+		"version": "PTDL_v1",
+		"update_url": null
+	},
+	"exported_at": "2021-09-05T16:10:05+02:00",
+	"name": "Bot NodeJS16 Discord14",
+	"author": "perso@stan1712.com",
+	"description": "Bot NodeJS 16 - Discord 14",
+	"features": null,
+	"images": ["5140/discord-v14"],
+	"file_denylist": [],
+	"startup": "node ${STARTUP_FILE}",
+	"config": {
+		"files": "{}",
+		"startup": "{}",
+		"logs": "{}",
+		"stop": "^C"
+	},
+	"variables": [
+		{
+			"name": "Startup File",
+			"description": "Select a file to start your bot from",
+			"env_variable": "STARTUP_FILE",
+			"default_value": "index.js",
+			"user_viewable": true,
+			"user_editable": true,
+			"rules": "required|string|max:200"
+		}
+	]
 }
