@@ -5,14 +5,14 @@
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/stanislasbdx/pterodactyl-egg-discord-v14.git"
+    "url": "git+https://github.com/stanislasbdx/pterodactyl-egg-discord.git"
   },
   "author": "You <3",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/stanislasbdx/pterodactyl-egg-discord-v14/issues"
+    "url": "https://github.com/stanislasbdx/pterodactyl-egg-discord/issues"
   },
-  "homepage": "https://github.com/stanislasbdx/pterodactyl-egg-discord-v14#readme",
+  "homepage": "https://github.com/stanislasbdx/pterodactyl-egg-discord#readme",
   "dependencies": {
     "discord.js": "~14.7.1",
     "@discordjs/voice": "~0.14.0"
