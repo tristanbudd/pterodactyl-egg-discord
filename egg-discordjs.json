@@ -14,7 +14,7 @@
 	"startup": "node ${STARTUP_FILE}",
 	"config": {
 		"files": "{}",
-		"startup": "{}",
+		"startup": "{\r\n    \"done\": \"\"\r\n}",
 		"logs": "{}",
 		"stop": "^C"
 	},
