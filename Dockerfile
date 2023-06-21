@@ -1,8 +1,8 @@
-FROM node:18.12-slim
+FROM node:18.12-alpine
 
-RUN apt-get update
-RUN apt-get upgrade -y
-RUN apt-get autoremove
+RUN apk update && \
+	apk upgrade && \
+	apk add --no-cache bash
 
 RUN adduser --disabled-password --home /home/container container
 USER container
