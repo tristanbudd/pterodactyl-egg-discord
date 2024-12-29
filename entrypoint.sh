@@ -6,6 +6,6 @@ cd /home/container
 
 yarn install --check-cache --production
 
-node -e "process.stdin.resume()"
+echo "-- Server started, waiting for ${STARTUP_FILE}..."
 
 ${MODIFIED_STARTUP}
