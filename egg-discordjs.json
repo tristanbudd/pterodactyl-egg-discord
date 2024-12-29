@@ -18,6 +18,13 @@
 		"logs": "{}",
 		"stop": "^C"
 	},
+    "scripts": {
+        "installation": {
+            "script": "#!\/bin\/bash\r\n\r\napt -y update\r\napt -y upgrade",
+            "container": "debian:buster-slim",
+            "entrypoint": "bash"
+        }
+    },
 	"variables": [
 		{
 			"name": "Startup File",
