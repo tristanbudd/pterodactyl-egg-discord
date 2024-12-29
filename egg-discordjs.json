@@ -10,7 +10,10 @@
     "description": "Bot NodeJS 18 - DiscordJS",
     "features": null,
     "docker_images": {
-        "5140\/discord-egg": "5140\/discord-egg"
+        "Node LTS latest (recommended)": "5140\/discord-egg:latest",
+        "Node 18": "5140\/discord-egg:node-18",
+        "Node 22": "5140\/discord-egg:node-22",
+        "Devbuilds": "5140\/discord-egg:snapshot"
     },
     "file_denylist": [],
     "startup": "node ${STARTUP_FILE}",
