@@ -1,4 +1,6 @@
-FROM node:18.12-alpine
+ARG NODE_VERSION=lts
+
+FROM node:$NODE_VERSION-alpine
 
 RUN apk update && \
     apk upgrade && \
