@@ -12,7 +12,8 @@ RUN adduser --disabled-password --home /home/container container
 
 WORKDIR /home/container
 
-ENV USER container HOME=/home/container
+ENV USER=container HOME=/home/container
+USER container
 
 COPY ./entrypoint.sh /entrypoint.sh
 
