@@ -21,3 +21,16 @@ To install this egg :
 ## 🌌・Usage
 
 To use it, just create a server with this egg in the "Nest Configuration" section.
+
+## 🤝・Contributing
+
+### Building a Docker image
+
+You can build the docker image with the LTS Node version, or a specific version.
+
+```bash
+podman build .
+
+# To build in specific Node version
+podman build --build-arg NODE_VERSION=18 .
+```
