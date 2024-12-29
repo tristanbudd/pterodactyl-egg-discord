@@ -4,10 +4,10 @@
         "version": "PTDL_v2",
         "update_url": null
     },
-    "exported_at": "2024-12-29T20:26:52+00:00",
-    "name": "Bot NodeJS18 Discord",
-    "author": "perso@stan1712.com",
-    "description": "Bot NodeJS 18 - DiscordJS",
+    "exported_at": "2024-12-29T23:32:18+00:00",
+    "name": "Discord Bot \u2022 NodeJS",
+    "author": "pterodactyl@stan1712.com",
+    "description": "A perfect boilerplate to start serving your DiscordJs bot !\r\nCheck out the README to get started : https:\/\/github.com\/stanislasbdx\/pterodactyl-egg-discord",
     "features": null,
     "docker_images": {
         "Node LTS latest (recommended)": "5140\/discord-egg:latest",
