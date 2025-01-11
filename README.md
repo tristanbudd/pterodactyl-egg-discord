@@ -41,7 +41,7 @@ By default when creating a server, the docker image will be the latest (stable),
 #### Defaults files from repository
 
 In addition you can choose from where to get the default project files like **index.js** and **package.json**.
-> Default value : https://raw.githubusercontent.com/stanislasbdx/pterodactyl-egg-discord/refs/heads/master/
+> Default value : <https://raw.githubusercontent.com/stanislasbdx/pterodactyl-egg-discord/refs/heads/master/>
 
 ![image](https://github.com/user-attachments/assets/05efea31-dbb9-4d94-82da-12a6dc8b5366)
 
