@@ -5,7 +5,7 @@ This is an egg dedicated to NodeJS bot hosting (discord.js & nodejs) on pterodac
 > Docker image: <https://hub.docker.com/r/5140/discord-egg>
 >
 > Github Repository <https://github.com/stanislasbdx/pterodactyl-egg-discord⁠>
-> 
+>
 > Docker image used: <https://hub.docker.com/_/node>
 
 An issue ? A suggestion ? DM me on discord (stan1712) !
