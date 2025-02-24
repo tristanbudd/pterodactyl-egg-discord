@@ -10,6 +10,9 @@ This is an egg dedicated to NodeJS bot hosting (discord.js & nodejs) on pterodac
 
 An issue ? A suggestion ? DM me on discord (stan1712) !
 
+> [!IMPORTANT]  
+> **If you run on ARM system, go check [Mizari's project](https://github.com/Mizari-Dev/pterodactyl-egg-nodejs-arm64)**, or you won't be able to use this and be sad 😓 ([here's what you can expect](https://github.com/stanislasbdx/pterodactyl-egg-discord/issues/5)).
+
 ## 🏗️・Installation
 
 To install this egg :
