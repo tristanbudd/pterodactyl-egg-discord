@@ -33,7 +33,7 @@
     "variables": [
         {
             "name": "Startup File",
-            "description": "Select a file to start your bot from",
+            "description": "Select a file to start your bot from.",
             "env_variable": "STARTUP_FILE",
             "default_value": "index.js",
             "user_viewable": true,
