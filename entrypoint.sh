@@ -9,9 +9,12 @@ log() {
     echo "$(timestamp) $*"
 }
 
-# Process the startup command.
-MODIFIED_STARTUP=$(echo "${STARTUP}" | sed -e 's/{{/${/g' -e 's/}}/}/g')
-MODIFIED_STARTUP=$(eval echo "$MODIFIED_STARTUP")
+# Replace '{{' with '${' and '}}' with '}' in STARTUP to allow variable expansion.
+TEMP_STARTUP="${STARTUP//\{\{/\$\{}"
+TEMP_STARTUP="${TEMP_STARTUP//\}\}/\}}"
+
+# Evaluate variable interpolation into MODIFIED_STARTUP
+eval "MODIFIED_STARTUP=\"$TEMP_STARTUP\""
 
 # Disable Corepack download prompts and enable Corepack.
 export COREPACK_ENABLE_DOWNLOAD_PROMPT=0
