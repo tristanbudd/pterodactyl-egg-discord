@@ -10,7 +10,8 @@ log() {
 }
 
 # Process the startup command.
-MODIFIED_STARTUP=$(eval echo "$(echo "${STARTUP}" | sed -e 's/{{/${/g' -e 's/}}/}/g')")
+MODIFIED_STARTUP=$(echo "${STARTUP}" | sed -e 's/{{/${/g' -e 's/}}/}/g')
+MODIFIED_STARTUP=$(eval echo "$MODIFIED_STARTUP")
 
 # Disable Corepack download prompts and enable Corepack.
 export COREPACK_ENABLE_DOWNLOAD_PROMPT=0
@@ -32,4 +33,4 @@ yarn install
 log "Info | Server startup sequence initiated. Waiting for ${STARTUP_FILE}..."
 
 # Start the server using the processed startup command.
-exec ${MODIFIED_STARTUP}
+exec bash -c "$MODIFIED_STARTUP"

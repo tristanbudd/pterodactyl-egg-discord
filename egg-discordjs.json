@@ -16,7 +16,7 @@
         "Dev Builds": "5140\/discord-egg:snapshot"
     },
     "file_denylist": [],
-    "startup": "node ${STARTUP_FILE}",
+    "startup": "if [[ -d .git ]] && [[ \"${AUTO_UPDATE}\" == \"1\" ]]; then if [[ -n \"$USERNAME\" && -n \"$ACCESS_TOKEN\" ]]; then git remote set-url origin \"https://${USERNAME}:${ACCESS_TOKEN}@${GIT_ADDRESS#https://}\"; fi; git pull && npm install; fi; node ${STARTUP_FILE}",
     "config": {
         "files": "{}",
         "startup": "{\n    \"done\": \"-- Server started\"\n}",
@@ -25,7 +25,7 @@
     },
     "scripts": {
         "installation": {
-            "script": "#!/bin/bash\n\nset -euo pipefail\n\napt-get update && apt-get upgrade -y\napt-get install -y curl\n\nif [[ -z \"$REPO_URL\" ]]; then\n  echo \"REPO_URL environment variable is not set.\"\n  exit 1\nfi\n\necho \"-- Downloading project defaults from: $REPO_URL\"\n\ncd /mnt/server\n\ncurl -fsSL \"$REPO_URL/projectdefaults/package.json\" -o package.json\ncurl -fsSL \"$REPO_URL/projectdefaults/index.js\" -o index.js\n\necho \"-- Server installed successfully\"",
+            "script": "#!/bin/bash; set -euo pipefail; apt-get update && apt-get upgrade -y; apt-get install -y curl git; if [[ -z \"$REPO_URL\" ]]; then echo \"REPO_URL environment variable is not set.\" ; exit 1; fi; if [[ -z \"$GIT_ADDRESS\" ]]; then echo \"GIT_ADDRESS environment variable is not set.\"; exit 1; fi; echo \"-- Downloading project defaults from: $REPO_URL\"; cd /mnt/server; curl -fsSL \"$REPO_URL/projectdefaults/package.json\" -o package.json; curl -fsSL \"$REPO_URL/projectdefaults/index.js\" -o index.js; if [[ -n \"$USERNAME\" && -n \"$ACCESS_TOKEN\" ]]; then git_url=\"https://${USERNAME}:${ACCESS_TOKEN}@${GIT_ADDRESS#https://}\"; else git_url=\"$GIT_ADDRESS\"; fi; if [ -z \"$(ls -A .)\" ]; then if [[ -z \"$BRANCH\" ]]; then git clone \"$git_url\" .; else git clone --single-branch --branch \"$BRANCH\" \"$git_url\" .; fi; else echo \"/mnt/server is not empty, skipping git clone\"; fi; echo \"-- Server installed successfully\"",
             "container": "debian:buster-slim",
             "entrypoint": "bash"
         }
@@ -42,13 +42,63 @@
             "field_type": "text"
         },
         {
-            "name": "GitHub Repository URL",
+            "name": "Required Content Repository URL",
             "description": "The GitHub repository where project defaults will be downloaded from. Must end with a slash.",
             "env_variable": "REPO_URL",
             "default_value": "https://raw.githubusercontent.com/tristanbudd/pterodactyl-egg-discord/refs/heads/master/",
             "user_viewable": true,
             "user_editable": true,
             "rules": "required|string",
+            "field_type": "text"
+        },
+        {
+            "name": "Git Repository URL",
+            "description": "Git repository to clone (HTTPS URL, e.g. https://github.com/user/repo).",
+            "env_variable": "GIT_ADDRESS",
+            "default_value": "",
+            "user_viewable": true,
+            "user_editable": true,
+            "rules": "required|string",
+            "field_type": "text"
+        },
+        {
+            "name": "Git Branch",
+            "description": "Branch to clone or pull from (default is repo default branch).",
+            "env_variable": "BRANCH",
+            "default_value": "",
+            "user_viewable": true,
+            "user_editable": true,
+            "rules": "nullable|string",
+            "field_type": "text"
+        },
+        {
+            "name": "Auto Update",
+            "description": "If enabled (1), will pull latest changes on every startup if a git repo is detected.",
+            "env_variable": "AUTO_UPDATE",
+            "default_value": "0",
+            "user_viewable": true,
+            "user_editable": true,
+            "rules": "required|boolean",
+            "field_type": "text"
+        },
+        {
+            "name": "Git Username",
+            "description": "Username to auth with git.",
+            "env_variable": "USERNAME",
+            "default_value": "",
+            "user_viewable": true,
+            "user_editable": true,
+            "rules": "nullable|string",
+            "field_type": "text"
+        },
+        {
+            "name": "Git Access Token",
+            "description": "Password to use with git.\r\n\r\nIt's best practice to use a Personal Access Token.\r\nhttps://github.com/settings/tokens\r\nhttps://gitlab.com/-/profile/personal_access_tokens",
+            "env_variable": "ACCESS_TOKEN",
+            "default_value": "",
+            "user_viewable": true,
+            "user_editable": true,
+            "rules": "nullable|string",
             "field_type": "text"
         }
     ]
