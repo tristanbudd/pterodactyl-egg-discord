@@ -16,13 +16,20 @@ log "Info | Changing directory to /home/container"
 cd /home/container || { log "Error | Failed to change directory to /home/container"; exit 1; }
 
 if [ "$AUTO_UPDATE" = "1" ]; then
+    # Correct Git URL formation
+    if [ -n "$USERNAME" ] && [ -n "$ACCESS_TOKEN" ]; then
+        GIT_URL="${GIT_ADDRESS/https:\/\//https:\/\/$USERNAME:$ACCESS_TOKEN@}"
+    else
+        GIT_URL="$GIT_ADDRESS"
+    fi
+
     if [ -z "$(ls -A)" ]; then
         log "Info | Directory empty, cloning repo..."
 
         if [ -z "$BRANCH" ]; then
-            git clone "${USERNAME:+$USERNAME:$ACCESS_TOKEN@}$GIT_ADDRESS" .
+            git clone "$GIT_URL" .
         else
-            git clone --single-branch --branch "$BRANCH" "${USERNAME:+$USERNAME:$ACCESS_TOKEN@}$GIT_ADDRESS" .
+            git clone --single-branch --branch "$BRANCH" "$GIT_URL" .
         fi
 
         if [ $? -ne 0 ]; then
@@ -38,18 +45,18 @@ if [ "$AUTO_UPDATE" = "1" ]; then
 
         CURRENT=$(git config --get remote.origin.url || echo "")
         ORIGIN=$(normalize "$CURRENT")
-        TARGET=$(normalize "${USERNAME:+$USERNAME:$ACCESS_TOKEN@}$GIT_ADDRESS")
+        TARGET=$(normalize "$GIT_URL")
 
         if [ "$ORIGIN" != "$TARGET" ]; then
             log "Warning | Git origin does not match target: $ORIGIN vs $TARGET"
             log "Info | Forcing update of git origin URL..."
-            git remote set-url origin "${USERNAME:+$USERNAME:$ACCESS_TOKEN@}$GIT_ADDRESS"
+            git remote set-url origin "$GIT_URL"
         fi
 
         log "Info | Pulling latest changes from git repo..."
-        git reset --hard
+        git fetch --all
+        git reset --hard origin/${BRANCH:-master}
         git clean -fd
-        git pull
 
         if [ -n "$BRANCH" ]; then
             git checkout "$BRANCH"
@@ -59,9 +66,9 @@ if [ "$AUTO_UPDATE" = "1" ]; then
         rm -rf ./* .[^.] .??* || { log "Error | Failed to clean directory"; exit 1; }
 
         if [ -z "$BRANCH" ]; then
-            git clone "${USERNAME:+$USERNAME:$ACCESS_TOKEN@}$GIT_ADDRESS" .
+            git clone "$GIT_URL" .
         else
-            git clone --single-branch --branch "$BRANCH" "${USERNAME:+$USERNAME:$ACCESS_TOKEN@}$GIT_ADDRESS" .
+            git clone --single-branch --branch "$BRANCH" "$GIT_URL" .
         fi
 
         if [ $? -ne 0 ]; then
@@ -75,6 +82,11 @@ fi
 
 log "Info | Setting Yarn linker to node-modules"
 yarn config set nodeLinker node-modules
+
+if [ -f "package-lock.json" ]; then
+    log "Info | Removing package-lock.json to prevent npm/yarn conflict"
+    rm package-lock.json
+fi
 
 log "Info | Installing dependencies with Yarn..."
 yarn install || { log "Error | Yarn install failed"; exit 1; }
