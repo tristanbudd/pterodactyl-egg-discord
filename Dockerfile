@@ -10,10 +10,6 @@ RUN apk update && \
 # Set working directory
 WORKDIR /home/container
 
-# Enable Corepack without download prompt
-ENV COREPACK_ENABLE_DOWNLOAD_PROMPT=0
-RUN corepack enable
-
 # Add non-root user (no password)
 RUN adduser -D -h /home/container container
 

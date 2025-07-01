@@ -7,23 +7,23 @@
     "exported_at": "2025-07-01T00:00:00+00:00",
     "name": "Discord Bot \u2022 NodeJS",
     "author": "contact@tristanbudd.com",
-    "description": "A perfect boilerplate to start serving your Discord.js bot!\nCheck out the README to get started:\nhttps://github.com/tristanbudd/pterodactyl-egg-discord",
+    "description": "A perfect boilerplate to start serving your Discord.js bot!\r\n\r\nCheck out the README to get started:\r\nhttps:\/\/github.com\/tristanbudd\/pterodactyl-egg-discord",
     "features": null,
     "docker_images": {
-        "Node LTS Latest": "tristanbudd/pterodactyl-egg-discord:latest"
+        "Node LTS Latest": "tristanbudd\/pterodactyl-egg-discord:latest"
     },
     "file_denylist": [],
-    "startup": "[[ -d .git ]] && [[ \"${AUTO_UPDATE}\" == \"1\" ]] && { [[ -n \"$USERNAME\" && -n \"$ACCESS_TOKEN\" ]] && git remote set-url origin \"https://$USERNAME:$ACCESS_TOKEN@${GIT_ADDRESS#https://}\"; git pull && npm install; } ; node ${STARTUP_FILE}",
+    "startup": "node ${STARTUP_FILE:-index.js}",
     "config": {
         "files": "{}",
-        "startup": "{\n    \"done\": \"-- Server started\"\n}",
+        "startup": "{\r\n    \"done\": \"-- Server started\"\r\n}",
         "logs": "{}",
         "stop": "^C^C"
     },
     "scripts": {
         "installation": {
-            "script": "#!/bin/bash\nset -euo pipefail\n\napt-get update && apt-get upgrade -y\napt-get install -y curl git\n\nif [[ -z \"$REPO_URL\" ]]; then\n  echo \"REPO_URL environment variable is not set.\"\n  exit 1\nfi\n\nif [[ -z \"$GIT_ADDRESS\" ]]; then\n  echo \"GIT_ADDRESS environment variable is not set.\"\n  exit 1\nfi\n\necho \"-- Downloading project defaults from: $REPO_URL\"\ncd /mnt/server\n\ncurl -fsSL \"$REPO_URL/projectdefaults/package.json\" -o package.json\ncurl -fsSL \"$REPO_URL/projectdefaults/index.js\" -o index.js\n\nif [[ -n \"$USERNAME\" && -n \"$ACCESS_TOKEN\" ]]; then\n  git_url=\"https://${USERNAME}:${ACCESS_TOKEN}@${GIT_ADDRESS#https://}\"\nelse\n  git_url=\"$GIT_ADDRESS\"\nfi\n\nif [ -z \"$(ls -A .)\" ]; then\n  if [[ -z \"$BRANCH\" ]]; then\n    git clone \"$git_url\" .\n  else\n    git clone --single-branch --branch \"$BRANCH\" \"$git_url\" .\n  fi\nelse\n  echo \"/mnt/server is not empty, skipping git clone\"\nfi\n\necho \"-- Server installed successfully\"\n",
-            "container": "debian:buster-slim",
+            "script": "#!\/bin\/bash\r\nset -e\r\n\r\nREPO_URL=\"https:\/\/raw.githubusercontent.com\/tristanbudd\/pterodactyl-egg-discord\/master\"\r\n\r\necho \"Updating system packages...\"\r\napt update && apt -y upgrade\r\n\r\necho \"Installing build tools...\"\r\napt -y install build-essential python2-dev libtool curl\r\n\r\necho \"Preparing server directory...\"\r\nmkdir -p \/mnt\/server\r\ncd \/mnt\/server\r\n\r\necho \"Downloading package.json and index.js from repo...\"\r\ncurl -L \"$REPO_URL\/projectdefaults\/package.json\" -o package.json\r\ncurl -L \"$REPO_URL\/projectdefaults\/index.js\" -o index.js\r\n\r\necho \"Installing npm dependencies (production only)...\"\r\nnpm install --omit=dev\r\n\r\necho \"Setup complete!\"",
+            "container": "node:20-bullseye-slim",
             "entrypoint": "bash"
         }
     },
@@ -39,18 +39,8 @@
             "field_type": "text"
         },
         {
-            "name": "Required Content Repository URL",
-            "description": "The GitHub repository where project defaults will be downloaded from. Must end with a slash.",
-            "env_variable": "REPO_URL",
-            "default_value": "https://raw.githubusercontent.com/tristanbudd/pterodactyl-egg-discord/refs/heads/master/",
-            "user_viewable": true,
-            "user_editable": true,
-            "rules": "required|string",
-            "field_type": "text"
-        },
-        {
             "name": "Git Repository URL",
-            "description": "Git repository to clone (HTTPS URL, e.g. https://github.com/user/repo).",
+            "description": "Git repository to clone (HTTPS URL, e.g. https:\/\/github.com\/user\/repo).",
             "env_variable": "GIT_ADDRESS",
             "default_value": "",
             "user_viewable": true,
@@ -90,7 +80,7 @@
         },
         {
             "name": "Git Access Token",
-            "description": "Password to use with git.\r\n\r\nIt's best practice to use a Personal Access Token.\r\nhttps://github.com/settings/tokens\r\nhttps://gitlab.com/-/profile/personal_access_tokens",
+            "description": "Password to use with git.\r\n\r\nIt's best practice to use a Personal Access Token.\r\nhttps:\/\/github.com\/settings\/tokens\r\nhttps:\/\/gitlab.com\/-\/profile\/personal_access_tokens",
             "env_variable": "ACCESS_TOKEN",
             "default_value": "",
             "user_viewable": true,
