@@ -16,7 +16,7 @@
         "Dev Builds": "5140\/discord-egg:snapshot"
     },
     "file_denylist": [],
-    "startup": "if [[ -d .git ]] && [[ \\\"${AUTO_UPDATE}\\\" == \\\"1\\\" ]]; then if [[ -n \\\"$USERNAME\\\" && -n \\\"$ACCESS_TOKEN\\\" ]]; then git remote set-url origin \\\"https://$USERNAME:$ACCESS_TOKEN@${GIT_ADDRESS#https://}\\\"; fi; git pull && npm install; fi; node ${STARTUP_FILE}",
+    "startup": "if [[ -d .git ]] && [[ \"${AUTO_UPDATE}\" == \"1\" ]]; then if [[ -n \"$USERNAME\" && -n \"$ACCESS_TOKEN\" ]]; then git remote set-url origin \"https://$USERNAME:$ACCESS_TOKEN@${GIT_ADDRESS#https://}\"; fi; git pull && npm install; fi; node ${STARTUP_FILE}",
     "config": {
         "files": "{}",
         "startup": "{\n    \"done\": \"-- Server started\"\n}",
