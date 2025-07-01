@@ -24,4 +24,6 @@ yarn install
 log "Info | Server startup sequence initiated. Waiting for ${STARTUP_FILE}..."
 
 # Execute the startup command string directly
-eval "$STARTUP"
+set -x  # For debugging
+
+bash -c "$STARTUP"
