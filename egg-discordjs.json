@@ -10,10 +10,7 @@
     "description": "A perfect boilerplate to start serving your Discord.js bot!\nCheck out the README to get started:\nhttps://github.com/tristanbudd/pterodactyl-egg-discord",
     "features": null,
     "docker_images": {
-        "Node LTS latest (recommended)": "5140\/discord-egg:latest",
-        "Node 18": "5140\/discord-egg:node-18",
-        "Node 22": "5140\/discord-egg:node-22",
-        "Dev Builds": "5140\/discord-egg:snapshot"
+        "Node LTS Latest": "tristanbudd/pterodactyl-egg-discord:latest"
     },
     "file_denylist": [],
     "startup": "[[ -d .git ]] && [[ \"${AUTO_UPDATE}\" == \"1\" ]] && { [[ -n \"$USERNAME\" && -n \"$ACCESS_TOKEN\" ]] && git remote set-url origin \"https://$USERNAME:$ACCESS_TOKEN@${GIT_ADDRESS#https://}\"; git pull && npm install; } ; node ${STARTUP_FILE}",
