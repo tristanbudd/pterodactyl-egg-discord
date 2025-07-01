@@ -1,11 +1,12 @@
 {
+    "_comment": "DO NOT EDIT: FILE GENERATED AUTOMATICALLY BY PTERODACTYL PANEL - PTERODACTYL.IO",
     "meta": {
         "version": "PTDL_v2",
         "update_url": null
     },
     "exported_at": "2025-07-01T00:00:00+00:00",
     "name": "Discord Bot \u2022 NodeJS",
-    "author": "Tristan Budd (fork), Stanislas Castaybert (original)",
+    "author": "contact@tristanbudd.com",
     "description": "A perfect boilerplate to start serving your Discord.js bot!\nCheck out the README to get started:\nhttps://github.com/tristanbudd/pterodactyl-egg-discord",
     "features": null,
     "docker_images": {
