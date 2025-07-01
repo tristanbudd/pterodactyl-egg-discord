@@ -2,7 +2,7 @@
 ARG NODE_VERSION=lts
 FROM node:${NODE_VERSION}-alpine
 
-# Install essential packages, including git
+# Install essential packages, including git and bash
 RUN apk update && \
     apk upgrade && \
     apk add --no-cache curl bash git
@@ -21,12 +21,14 @@ RUN adduser -D -h /home/container container
 RUN chown -R container:container /home/container && \
     chmod -R 755 /home/container
 
+# Copy entrypoint *outside* the mounted directory to avoid overwrite
+COPY ./entrypoint.sh /entrypoint.sh
+
+# Set executable permissions BEFORE switching user
+RUN chmod +x /entrypoint.sh
+
 # Switch to the non-root user
 USER container
 
-# Copy entrypoint (corrected path)
-COPY ./entrypoint.sh /home/container/entrypoint.sh
-RUN chmod +x /home/container/entrypoint.sh
-
-# Run the entrypoint script
-CMD ["/bin/bash", "/home/container/entrypoint.sh"]
+# Run the entrypoint script using /bin/sh (Alpine default shell)
+CMD ["/bin/sh", "/entrypoint.sh"]
