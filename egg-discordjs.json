@@ -1,31 +1,30 @@
 {
-    "_comment": "DO NOT EDIT: FILE GENERATED AUTOMATICALLY BY PTERODACTYL PANEL - PTERODACTYL.IO",
     "meta": {
         "version": "PTDL_v2",
         "update_url": null
     },
-    "exported_at": "2024-12-29T23:32:18+00:00",
+    "exported_at": "2025-07-01T00:00:00+00:00",
     "name": "Discord Bot \u2022 NodeJS",
-    "author": "pterodactyl@stan1712.com",
-    "description": "A perfect boilerplate to start serving your DiscordJs bot !\r\nCheck out the README to get started : https:\/\/github.com\/stanislasbdx\/pterodactyl-egg-discord",
+    "author": "Tristan Budd (fork), Stanislas Castaybert (original)",
+    "description": "A perfect boilerplate to start serving your Discord.js bot!\nCheck out the README to get started:\nhttps://github.com/tristanbudd/pterodactyl-egg-discord",
     "features": null,
     "docker_images": {
         "Node LTS latest (recommended)": "5140\/discord-egg:latest",
         "Node 18": "5140\/discord-egg:node-18",
         "Node 22": "5140\/discord-egg:node-22",
-        "Devbuilds": "5140\/discord-egg:snapshot"
+        "Dev Builds": "5140\/discord-egg:snapshot"
     },
     "file_denylist": [],
     "startup": "node ${STARTUP_FILE}",
     "config": {
         "files": "{}",
-        "startup": "{\r\n    \"done\": \"-- Server started\"\r\n}",
+        "startup": "{\n    \"done\": \"-- Server started\"\n}",
         "logs": "{}",
         "stop": "^C^C"
     },
     "scripts": {
         "installation": {
-            "script": "#!\/bin\/bash\r\n\r\napt -y update\r\napt -y upgrade\r\n\r\napt -y install curl\r\n\r\necho \"-- Downloading from : $REPO_URL\"\r\n\r\ncd \/mnt\/server\r\n\r\ncurl -L $REPO_URL\/projectdefaults\/package.json > package.json\r\ncurl -L $REPO_URL\/projectdefaults\/index.js > index.js\r\n\r\necho \"-- Server installed\"",
+            "script": "#!/bin/bash\n\nset -euo pipefail\n\napt-get update && apt-get upgrade -y\napt-get install -y curl\n\nif [[ -z \"$REPO_URL\" ]]; then\n  echo \"REPO_URL environment variable is not set.\"\n  exit 1\nfi\n\necho \"-- Downloading project defaults from: $REPO_URL\"\n\ncd /mnt/server\n\ncurl -fsSL \"$REPO_URL/projectdefaults/package.json\" -o package.json\ncurl -fsSL \"$REPO_URL/projectdefaults/index.js\" -o index.js\n\necho \"-- Server installed successfully\"",
             "container": "debian:buster-slim",
             "entrypoint": "bash"
         }
@@ -33,7 +32,7 @@
     "variables": [
         {
             "name": "Startup File",
-            "description": "Select a file to start your bot from.",
+            "description": "Select the file to start your bot from.",
             "env_variable": "STARTUP_FILE",
             "default_value": "index.js",
             "user_viewable": true,
@@ -42,10 +41,10 @@
             "field_type": "text"
         },
         {
-            "name": "Github Repository URL",
-            "description": "The Github repository where project defaults will be downloaded.",
+            "name": "GitHub Repository URL",
+            "description": "The GitHub repository where project defaults will be downloaded from. Must end with a slash.",
             "env_variable": "REPO_URL",
-            "default_value": "https:\/\/raw.githubusercontent.com\/stanislasbdx\/pterodactyl-egg-discord\/refs\/heads\/master\/",
+            "default_value": "https://raw.githubusercontent.com/tristanbudd/pterodactyl-egg-discord/refs/heads/master/",
             "user_viewable": true,
             "user_editable": true,
             "rules": "required|string",

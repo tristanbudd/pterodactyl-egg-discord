@@ -1,27 +1,32 @@
+# Set the Node.js version (default: LTS)
 ARG NODE_VERSION=lts
+FROM node:${NODE_VERSION}-alpine
 
-FROM node:$NODE_VERSION-alpine
-
+# Install essential packages
 RUN apk update && \
     apk upgrade && \
     apk add --no-cache curl bash
 
+# Set working directory
 WORKDIR /home/container
 
-RUN export COREPACK_ENABLE_DOWNLOAD_PROMPT=0
+# Enable Corepack without download prompt
+ENV COREPACK_ENABLE_DOWNLOAD_PROMPT=0
 RUN corepack enable
 
-RUN yarn policies set-version
+# Add non-root user (no password)
+RUN adduser -D -h /home/container container
 
-RUN adduser --disabled-password --home /home/container container
-
-ENV USER=container HOME=/home/container
-
+# Set permissions for the working directory
 RUN chown -R container:container /home/container && \
     chmod -R 755 /home/container
 
+# Switch to the non-root user
 USER container
 
-COPY ./entrypoint.sh /home/sbdx/entrypoint.sh
+# Copy entrypoint (corrected path)
+COPY ./entrypoint.sh /home/container/entrypoint.sh
+RUN chmod +x /home/container/entrypoint.sh
 
-CMD ["/bin/bash", "/home/sbdx/entrypoint.sh"]
+# Run the entrypoint script
+CMD ["/bin/bash", "/home/container/entrypoint.sh"]

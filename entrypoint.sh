@@ -1,19 +1,35 @@
 #!/bin/bash
 
-MODIFIED_STARTUP=`eval echo $(echo ${STARTUP} | sed -e 's/{{/${/g' -e 's/}}/}/g')`
+# Formatting functions for timestamps and logging.
+timestamp() {
+    echo "[$(date '+%Y-%m-%d %H:%M:%S')]"
+}
 
+log() {
+    echo "$(timestamp) $*"
+}
+
+# Process the startup command.
+MODIFIED_STARTUP=$(eval echo "$(echo "${STARTUP}" | sed -e 's/{{/${/g' -e 's/}}/}/g')")
+
+# Disable Corepack download prompts and enable Corepack.
 export COREPACK_ENABLE_DOWNLOAD_PROMPT=0
+log "Info | Enabling Corepack..."
 corepack enable
 
-echo "$ cd /home/container"
-cd /home/container
+# Navigate to the working directory.
+log "Info | Changing directory to /home/container"
+cd /home/container || { log "Error | Failed to change directory to /home/container"; exit 1; }
 
-echo "$ yarn config set nodeLinker node-modules"
+# Set yarn to use node_modules linker.
+log "Info | Setting Yarn linker to node-modules"
 yarn config set nodeLinker node-modules
 
-echo "$ yarn install"
+# Install project dependencies.
+log "Info | Installing dependencies with Yarn..."
 yarn install
 
-echo "-- Server started, waiting for ${STARTUP_FILE}..."
+log "Info | Server startup sequence initiated. Waiting for ${STARTUP_FILE}..."
 
-${MODIFIED_STARTUP}
+# Start the server using the processed startup command.
+exec ${MODIFIED_STARTUP}

@@ -5,16 +5,24 @@
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/stanislasbdx/pterodactyl-egg-discord.git"
+    "url": "git+https://github.com/tristanbudd/pterodactyl-egg-discord.git"
   },
-  "author": "You <3",
+  "author": "Tristan Budd <contact@tristanbudd.com> (fork), Stanislas Castaybert (original)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/stanislasbdx/pterodactyl-egg-discord/issues"
+    "original": "https://github.com/stanislasbdx/pterodactyl-egg-discord/issues",
+    "fork": "https://github.com/tristanbudd/pterodactyl-egg-discord/issues"
   },
   "homepage": "https://github.com/stanislasbdx/pterodactyl-egg-discord#readme",
+  "support": {
+    "original_repo": "https://github.com/stanislasbdx/pterodactyl-egg-discord/issues",
+    "fork_repo": "https://github.com/tristanbudd/pterodactyl-egg-discord/issues"
+  },
   "dependencies": {
     "discord.js": "~14.19.3",
     "@discordjs/voice": "~0.18.0"
+  },
+  "engines": {
+    "node": ">=18"
   }
 }
