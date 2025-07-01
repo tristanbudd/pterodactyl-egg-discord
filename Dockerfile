@@ -2,10 +2,10 @@
 ARG NODE_VERSION=lts
 FROM node:${NODE_VERSION}-alpine
 
-# Install essential packages
+# Install essential packages, including git
 RUN apk update && \
     apk upgrade && \
-    apk add --no-cache curl bash
+    apk add --no-cache curl bash git
 
 # Set working directory
 WORKDIR /home/container

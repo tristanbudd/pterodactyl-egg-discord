@@ -16,7 +16,7 @@
         "Dev Builds": "5140\/discord-egg:snapshot"
     },
     "file_denylist": [],
-    "startup": "if [[ -d .git ]] && [[ \"$AUTO_UPDATE\" == \"1\" ]]; then if [[ -n $USERNAME && -n $ACCESS_TOKEN ]]; then git remote set-url origin \"https://$USERNAME:$ACCESS_TOKEN@${GIT_ADDRESS#https://}\"; fi; git pull && npm install; fi; node ${STARTUP_FILE}",
+    "startup": "[[ -d .git ]] && [[ \"${AUTO_UPDATE}\" == \"1\" ]] && { [[ -n \"$USERNAME\" && -n \"$ACCESS_TOKEN\" ]] && git remote set-url origin \"https://$USERNAME:$ACCESS_TOKEN@${GIT_ADDRESS#https://}\"; git pull && npm install; } ; node ${STARTUP_FILE}",
     "config": {
         "files": "{}",
         "startup": "{\n    \"done\": \"-- Server started\"\n}",
@@ -25,7 +25,7 @@
     },
     "scripts": {
         "installation": {
-            "script": "#!/bin/bash\nset -euo pipefail\napt-get update && apt-get upgrade -y\napt-get install -y curl git\nif [[ -z \"$REPO_URL\" ]]; then echo \"REPO_URL environment variable is not set.\"; exit 1; fi\nif [[ -z \"$GIT_ADDRESS\" ]]; then echo \"GIT_ADDRESS environment variable is not set.\"; exit 1; fi\necho \"-- Downloading project defaults from: $REPO_URL\"\ncd /mnt/server\ncurl -fsSL \"$REPO_URL/projectdefaults/package.json\" -o package.json\ncurl -fsSL \"$REPO_URL/projectdefaults/index.js\" -o index.js\nif [[ -n \"$USERNAME\" && -n \"$ACCESS_TOKEN\" ]]; then\n  git_url=\"https://${USERNAME}:${ACCESS_TOKEN}@${GIT_ADDRESS#https://}\"\nelse\n  git_url=\"$GIT_ADDRESS\"\nfi\nif [ -z \"$(ls -A .)\" ]; then\n  if [[ -z \"$BRANCH\" ]]; then\n    git clone \"$git_url\" .\n  else\n    git clone --single-branch --branch \"$BRANCH\" \"$git_url\" .\n  fi\nelse\n  echo \"/mnt/server is not empty, skipping git clone\"\nfi\n echo \"-- Server installed successfully\"",
+            "script": "#!/bin/bash\nset -euo pipefail\n\napt-get update && apt-get upgrade -y\napt-get install -y curl git\n\nif [[ -z \"$REPO_URL\" ]]; then\n  echo \"REPO_URL environment variable is not set.\"\n  exit 1\nfi\n\nif [[ -z \"$GIT_ADDRESS\" ]]; then\n  echo \"GIT_ADDRESS environment variable is not set.\"\n  exit 1\nfi\n\necho \"-- Downloading project defaults from: $REPO_URL\"\ncd /mnt/server\n\ncurl -fsSL \"$REPO_URL/projectdefaults/package.json\" -o package.json\ncurl -fsSL \"$REPO_URL/projectdefaults/index.js\" -o index.js\n\nif [[ -n \"$USERNAME\" && -n \"$ACCESS_TOKEN\" ]]; then\n  git_url=\"https://${USERNAME}:${ACCESS_TOKEN}@${GIT_ADDRESS#https://}\"\nelse\n  git_url=\"$GIT_ADDRESS\"\nfi\n\nif [ -z \"$(ls -A .)\" ]; then\n  if [[ -z \"$BRANCH\" ]]; then\n    git clone \"$git_url\" .\n  else\n    git clone --single-branch --branch \"$BRANCH\" \"$git_url\" .\n  fi\nelse\n  echo \"/mnt/server is not empty, skipping git clone\"\nfi\n\necho \"-- Server installed successfully\"\n",
             "container": "debian:buster-slim",
             "entrypoint": "bash"
         }
